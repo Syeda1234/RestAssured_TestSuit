@@ -1,0 +1,21 @@
+package com.example;
+
+import io.restassured.RestAssured;
+import static io.restassured.RestAssured.*;
+import static org.hamcrest.Matchers.*;
+import org.testng.annotations.Test;
+
+public class ApiTest {
+
+    @Test
+    public void testGetRequest() {
+        RestAssured.baseURI = "https://api.example.com";
+        given()
+            .header("Content-Type", "application/json")
+        .when()
+            .get("/v1/resources")
+        .then()
+            .statusCode(200)
+            .body("data.id", hasItems(1, 2, 3));
+    }
+}

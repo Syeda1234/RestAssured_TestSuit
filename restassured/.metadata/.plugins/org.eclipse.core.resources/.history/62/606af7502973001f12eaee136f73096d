@@ -1,0 +1,46 @@
+package com.example;
+
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import org.junit.Test;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static io.restassured.RestAssured.*;
+import static org.hamcrest.Matchers.*;
+
+public class ProductTestsPost {
+
+    @Test
+    public void testCreateUser() {
+        // Create a HashMap to store the request body
+        Map<String, Object> requestBody = new HashMap<>();
+        requestBody.put("name", "John Doe");
+        requestBody.put("job", "Software Developer");
+
+        // Send POST request
+        Response response = given().
+            header("Content-Type", "application/json").  // Set the content type as JSON
+            body(requestBody).  // Set the request body
+        when().
+            post("https://reqres.in/api/users").  // Send the POST request
+        then().
+            assertThat().
+            statusCode(201).  // Check that the response status code is 201 (Created)
+            extract().response();  // Extract the response
+
+        // Log the entire response for debugging
+        System.out.println("Response: " + response.asString());
+
+        // Extract and log the name and job from the response
+        String createdName = response.path("name");
+        String createdJob = response.path("job");
+        System.out.println("Created User's Name: " + createdName);
+        System.out.println("Created User's Job: " + createdJob);
+
+        // Assert that the created name and job match the input
+        assert(createdName.equals("John Doe"));
+        assert(createdJob.equals("Software Developer"));
+    }
+}
