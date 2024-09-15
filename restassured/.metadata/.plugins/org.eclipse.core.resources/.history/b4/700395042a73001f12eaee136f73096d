@@ -1,0 +1,25 @@
+package com.example;
+
+import io.restassured.RestAssured;
+import org.junit.Test;
+
+import static io.restassured.RestAssured.*;
+import static org.hamcrest.Matchers.*;
+
+public class ProductTestsDelete {
+
+    @Test
+    public void testDeleteUser() {
+        // ID of the user to delete
+        int userId = 2;
+
+        // Send DELETE request
+        given().
+            header("Content-Type", "application/json").  // Set the content type as JSON
+        when().
+            delete("https://reqres.in/api/users/" + userId).  // Send DELETE request to delete user with specified ID
+        then().
+            assertThat().
+            statusCode(204);  // Check that the status code is 204 (No Content)
+    }
+}

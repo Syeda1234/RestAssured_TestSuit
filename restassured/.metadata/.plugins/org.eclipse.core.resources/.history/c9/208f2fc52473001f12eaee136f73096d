@@ -1,0 +1,21 @@
+package com.example;
+
+import io.restassured.RestAssured;
+import org.junit.Test;
+
+import static io.restassured.RestAssured.*;
+import static org.hamcrest.Matchers.*;
+
+public class ProductTests {
+
+    @Test
+    public void testGetAllProducts() {
+        given().
+        when().
+            get("https://reqres.in/api/users").
+        then().
+            assertThat().
+            statusCode(200).
+            body("data.size()", greaterThan(0));  // Ensures the "data" array has at least one user
+    }
+}

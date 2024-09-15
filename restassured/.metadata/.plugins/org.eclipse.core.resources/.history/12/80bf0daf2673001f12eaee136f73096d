@@ -1,0 +1,27 @@
+package com.example;
+
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import org.junit.Test;
+
+import static io.restassured.RestAssured.*;
+import static org.hamcrest.Matchers.*;
+
+public class ProductTestsGet {
+
+	@Test
+	public void testUpdateProduct() {
+	    String updatedProduct = "{ \"name\": \"Updated Product\", \"price\": 120.0 }";
+
+	    given().
+	        contentType("application/json").
+	        pathParam("id", 1).
+	        body(updatedProduct).
+	    when().
+	        put("https://api.example.com/products/{id}").
+	    then().
+	        assertThat().
+	        statusCode(200).  // OK status
+	        body("name", equalTo("Updated Product"));
+	}
+}

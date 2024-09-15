@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>io.rest-assured</groupId>
+    <artifactId>rest-assured</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>rest-assured</name>
+    <url>http://maven.apache.org</url>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- The following is just an example dependency. All
+             dependencies will be packaged in a single JAR. -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.4</version>
+        </dependency>
+    
+	 
+	    <!-- Rest-Assured for API testing -->
+	    <dependency>
+	        <groupId>io.rest-assured</groupId>
+	        <artifactId>rest-assured</artifactId>
+	        <version>5.1.1</version> <!-- Check for the latest version -->
+	    </dependency>
+	
+	    <!-- JSONPath for parsing JSON responses -->
+	    <dependency>
+	        <groupId>io.rest-assured</groupId>
+	        <artifactId>json-path</artifactId>
+	        <version>5.1.1</version>
+	    </dependency>
+	
+	    <!-- OpenAPI for API documentation -->
+	    <dependency>
+	        <groupId>io.swagger.parser.v3</groupId>
+	        <artifactId>swagger-parser</artifactId>
+	        <version>2.1.12</version> <!-- Check for the latest version -->
+	    </dependency>
+	
+	    <!-- Selenium WebDriver for UI testing -->
+	    <dependency>
+	        <groupId>org.seleniumhq.selenium</groupId>
+	        <artifactId>selenium-java</artifactId>
+	        <version>4.9.0</version> <!-- Check for the latest version -->
+	    </dependency>
+	
+	    <!-- TestNG or JUnit for testing (use one) -->
+	    <dependency>
+	        <groupId>org.testng</groupId>
+	        <artifactId>testng</artifactId>
+	        <version>7.4.0</version> <!-- Check for the latest version -->
+	        <scope>test</scope>
+	    </dependency>
+	</dependencies>
+	
+    <profiles>
+        <profile>
+            <id>default-tools.jar</id>
+            <activation>
+                <property>
+                    <name>java.vendor</name>
+                    <value>Oracle Corporation</value>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>com.sun</groupId>
+                    <artifactId>tools</artifactId>
+                    <version>1.5</version>
+                    <scope>system</scope>
+                    <systemPath>${java.home}/../lib/tools.jar</systemPath>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+            </plugin>
+	        <plugin>
+	            <groupId>org.apache.maven.plugins</groupId>
+	            <artifactId>maven-shade-plugin</artifactId>
+	            <version>3.2.4</version>
+	            <executions>
+	                <execution>
+	                    <phase>package</phase>
+	                    <goals>
+	                        <goal>shade</goal>
+	                    </goals>
+	                </execution>
+	            </executions>
+	        </plugin>
+    </plugins>
+    </build>
+</project>

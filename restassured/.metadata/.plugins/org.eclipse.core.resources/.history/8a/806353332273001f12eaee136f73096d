@@ -1,0 +1,20 @@
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import org.junit.Test;
+
+import static io.restassured.RestAssured.*;
+import static org.hamcrest.Matchers.*;
+
+public class ProductTests {
+
+    @Test
+    public void testGetAllProducts() {
+        given().
+        when().
+            get("https://api.example.com/products").
+        then().
+            assertThat().
+            statusCode(200).
+            body("size()", greaterThan(0));  // Ensures at least one product is present
+    }
+}

@@ -1,0 +1,22 @@
+package io.rest_assured.rest_assured;
+
+import com.sun.javadoc.ClassDoc;
+import com.sun.javadoc.RootDoc;
+import org.apache.commons.lang3.RandomStringUtils;
+
+/**
+ * Hello world!
+ */
+public class Doclet {
+	@Test
+    public void testGetRequest() {
+        RestAssured.baseURI = "https://api.example.com";
+        given()
+            .header("Content-Type", "application/json")
+        .when()
+            .get("/v1/resources")
+        .then()
+            .statusCode(200)
+            .body("data.id", hasItems(1, 2, 3));
+    }
+}
